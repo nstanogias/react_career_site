@@ -6,14 +6,27 @@ const SideNavItems = () => {
 
     const items = [
         {
+            type: 'navItem',
             icon: 'home',
             text: 'Home',
+            link: '/'
+        },
+        {
+            type: 'navItem',
+            icon: 'sign-in',
+            text: 'Log in',
+            link: '/'
+        },
+        {
+            type: 'navItem',
+            icon: 'sign-out',
+            text: 'Logout',
             link: '/'
         }
     ]
 
     const element = (item,i) => (
-        <div key={i}>
+        <div key={i} className={item.type}>
             <Link to={item.link}>
                 <FontAwesome name={item.icon}/>
                 {item.text}
