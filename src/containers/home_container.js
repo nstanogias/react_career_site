@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getJobAdds } from '../actions/actions';
+import { getJobAdds } from '../store/actions/actions';
 
 class HomeContainer extends Component {
 

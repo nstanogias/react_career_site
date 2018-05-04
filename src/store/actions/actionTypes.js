@@ -1,0 +1,11 @@
+export const FETCH_JOB_ADDS_START = 'FETCH_JOB_ADDS_START';
+export const FETCH_JOB_ADDS_SUCCESS = 'FETCH_JOB_ADDS_SUCCESS';
+export const FETCH_JOB_ADDS_FAIL = 'FETCH_JOB_ADDS_FAIL';
+
+export const ADD_JOB_ADD = 'ADD_JOB_ADD';
+export const REMOVE_JOB_ADD = 'REMOVE_JOB_ADD';
+
+export const AUTH_START = 'AUTH_START';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const AUTH_FAIL = 'AUTH_FAIL';
+export const AUTH_LOGOUT = 'AUTH_LOGOUT';
