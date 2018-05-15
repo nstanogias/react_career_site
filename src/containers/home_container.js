@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../store/actions/actions';
-import { Card, Icon, Image, Grid } from 'semantic-ui-react';
+import { Card, Grid, Image } from 'semantic-ui-react';
+import entryImage from '../assets/images/img1.jpg';
 
 class HomeContainer extends Component {
 
@@ -13,6 +14,9 @@ class HomeContainer extends Component {
     console.log("adds are", this.props.jobAdds);
     let content = (
       <Grid>
+        <Grid.Row>
+          <Image src={entryImage} centered size='huge'/>
+        </Grid.Row>
         <Grid.Row>
           {this.props.jobAdds.map( jobAdd => {
             console.log(jobAdd);

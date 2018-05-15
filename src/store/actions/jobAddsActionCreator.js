@@ -43,3 +43,7 @@ export const fetchJobAdds = () => {
       });
   }
 };
+
+export const addJobAdd = () => {
+
+}

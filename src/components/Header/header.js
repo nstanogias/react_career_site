@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
-import { Link } from 'react-router-dom';
 import Nav from './SideNav/sidenav';
 
 class Header extends Component {
@@ -21,8 +20,9 @@ class Header extends Component {
                     <FontAwesome name="bars"
                                  onClick={()=> this.setState({showNav:true})}
                                  style={{
-                                     color:'blue',
-                                     padding:'10px',
+                                     color:'white',
+                                     marginTop:'10px',
+                                     marginLeft:'30px',
                                      cursor:'pointer'
                                  }}
                     />
@@ -31,11 +31,6 @@ class Header extends Component {
                     showNav={this.state.showNav}
                     onHideNav={()=>this.onHideNav()}
                 />
-
-                <Link to="/" className="logo">
-                    Careers
-                </Link>
-
             </header>
         );
     }
