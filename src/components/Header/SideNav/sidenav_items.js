@@ -15,13 +15,25 @@ const SideNavItems = () => {
       type: 'navItem',
       icon: 'sign-in',
       text: 'Log in',
-      link: '/'
+      link: '/login'
+    },
+    {
+      type: 'navItem',
+      icon: 'file-text-o',
+      text: 'My Profile',
+      link: '/user'
     },
     {
       type: 'navItem',
       icon: 'sign-out',
       text: 'Logout',
-      link: '/'
+      link: '/user/logout'
+    },
+    {
+      type: 'navItem',
+      icon: 'file-text-o',
+      text: 'Logout',
+      link: '/user/register'
     },
     {
       type: 'navItem',
