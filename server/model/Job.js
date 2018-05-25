@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const jobAddSchema = mongoose.Schema({
+const jobSchema = mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -16,6 +16,6 @@ const jobAddSchema = mongoose.Schema({
 
 }, {timestamps:true})
 
-const JobAdd = mongoose.model('JobAdd', jobAddSchema);
+const Job = mongoose.model('Job', jobSchema);
 
-module.exports = { JobAdd }
+module.exports = { Job }
