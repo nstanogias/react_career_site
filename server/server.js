@@ -33,20 +33,7 @@ app.get('/', (req, res) => res.send('Hello World!'))
 
 
 //-------------------------------------USER_API---------------------------------
-app.post('/api/register',(req,res)=>{
-  const user = new User(req.body);
 
-  user.save((err,doc)=>{
-    if(err) {
-      console.log(err);
-      return res.send(err);
-    }
-    res.status(200).json({
-      success:true,
-      user:doc
-    })
-  })
-})
 
 app.post('/api/login',(req,res)=>{
   User.findOne({'email':req.body.email},(err,user)=>{
