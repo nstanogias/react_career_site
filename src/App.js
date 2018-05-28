@@ -1,32 +1,58 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
+
 import './App.css';
-import Routes from './routes';
-import { BrowserRouter } from 'react-router-dom';
-import jobsReducer from './store/reducers/jobsReducers';
-import userReducer from './store/reducers/userReducer';
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
+import store from './store/store';
+
+import jwt_decode from 'jwt-decode';
+import setAuthToken from './utils/setAuthToken';
+import { setCurrentUser, logoutUser } from './store/actions/actions';
+
+import Navbar from './components/home/Navbar';
+import Landing from './components/home/Landing';
+import Footer from './components/home/Footer';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
 
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// Check for token
+if (localStorage.jwtToken) {
+  // Set auth token header auth
+  setAuthToken(localStorage.jwtToken);
+  // Decode token and get user info and exp
+  const decoded = jwt_decode(localStorage.jwtToken);
+  // Set user and isAuthenticated
+  store.dispatch(setCurrentUser(decoded));
 
-const rootReducer = combineReducers({
-    jobs: jobsReducer,
-    user: userReducer
-});
+  // Check for expired token
+  const currentTime = Date.now() / 1000;
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUser());
+    // TODO: Clear current Profile
 
-const store = createStore(rootReducer, composeEnhancers(
-    applyMiddleware(thunk)
-));
+    // Redirect to login
+    window.location.href = '/login';
+  }
+}
 
 class App extends Component {
   render() {
     return (
         <Provider store={store}>
-          <BrowserRouter>
-            <Routes/>
-          </BrowserRouter>
+          <Router>
+            <div className="App">
+              <Navbar />
+              <Route exact path="/" component={Landing} />
+              <div className="container">
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/login" component={Login} />
+              </div>
+              <Footer />
+            </div>
+          </Router>
         </Provider>
     );
   }

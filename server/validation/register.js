@@ -1,4 +1,5 @@
 const Validator = require('validator');
+const _ = require('underscore');
 
 module.exports = function validateRegister(data) {
   let errors = {};

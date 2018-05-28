@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/icons": "^1.0.0-beta.43",
     "axios": "^0.18.0",
-    "lodash": "^4.17.10",
-    "material-ui": "^1.0.0-beta.43",
+    "classnames": "^2.2.5",
+    "jwt-decode": "^2.2.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-fontawesome": "^1.6.1",
@@ -16,8 +15,7 @@
     "react-simple-sidenav": "^0.1.6",
     "redux": "^4.0.0",
     "redux-thunk": "^2.2.0",
-    "semantic-ui-react": "^0.80.0",
-    "validator": "^10.2.0"
+    "semantic-ui-react": "^0.80.0"
   },
   "scripts": {
     "start": "react-scripts start",

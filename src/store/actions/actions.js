@@ -1,7 +1,6 @@
 export {
-    fetchJobAdds
-} from './jobAddsActionCreator';
-
-export {
-  loginUser
-} from './userActionCreator';
+  registerUser,
+  loginUser,
+  setCurrentUser,
+  logoutUser
+} from './authActionCreator';
