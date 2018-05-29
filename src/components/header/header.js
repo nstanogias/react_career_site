@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
-import Nav from './SideNav/sidenav';
+import Nav from './sideNav/sidenav';
 
 class Header extends Component {
 
