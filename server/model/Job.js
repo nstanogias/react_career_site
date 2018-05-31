@@ -20,13 +20,7 @@ const jobSchema = mongoose.Schema({
   description: {
     type: String,
     required: true
-  },
-  users: [{
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: 'users'
-    }
-  }]
+  }
 }, {timestamps: true});
 
 const Job = mongoose.model('jobs', jobSchema);

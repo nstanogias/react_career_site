@@ -7,6 +7,9 @@ const keys = require('../../config/keys');
 //Load User model
 const User  = require('../../model/User');
 
+//Load UserJobsApplied model
+const UserJobs = require('../../model/UserJobs');
+
 //Load Input Validation
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
@@ -99,5 +102,12 @@ router.post('/login', (req, res) => {
     });
   });
 });
+
+//get api/userjobs/user/:id -- user
+//get api/userjobs/ -- admin
+
+//post api/userjobs/apply/:id user
+//post api/userjobs/accept/:id admin
+
 
 module.exports = router;

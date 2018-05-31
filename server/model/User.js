@@ -18,11 +18,7 @@ const userSchema = new Schema({
   role: {
     type: Number,
     default: 0
-  },
-  jobs: [{
-    type: Schema.Types.ObjectId,
-    ref: 'jobs'
-  }]
+  }
 });
 
 module.exports = User = mongoose.model('users', userSchema);
