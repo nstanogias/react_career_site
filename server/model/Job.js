@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const jobSchema = mongoose.Schema({
-  name: {
+  title: {
     type: String,
     required: true
   },
@@ -16,7 +16,17 @@ const jobSchema = mongoose.Schema({
   city: {
     type: String,
     required: true
-  }
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  users: [{
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'users'
+    }
+  }]
 }, {timestamps: true});
 
 const Job = mongoose.model('jobs', jobSchema);
