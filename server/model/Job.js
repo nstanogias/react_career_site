@@ -20,9 +20,11 @@ const jobSchema = mongoose.Schema({
   description: {
     type: String,
     required: true
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
-}, {timestamps: true});
+});
 
-const Job = mongoose.model('jobs', jobSchema);
-
-module.exports = {Job};
+module.exports = Job = mongoose.model('jobs', jobSchema);

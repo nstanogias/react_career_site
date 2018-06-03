@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
+const passport = require('passport');
 
 //Load User model
 const User  = require('../../model/User');
@@ -54,6 +55,23 @@ router.post('/register', (req,res) => {
   })
 });
 
+// @route POST api/users/apply
+// @desc Login user
+// @access Public
+router.post(
+  '/apply',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+
+    const newUserJob = new UserJobs({
+      userId: req.user.id,
+      name: req.body.jobId
+    });
+
+    newUserJob.save().then(newUserJob => res.json(newUserJob));
+  }
+);
+
 // @route GET api/users/login
 // @desc Login user
 // @access Public
@@ -81,7 +99,7 @@ router.post('/login', (req, res) => {
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         // User Matched
-        const payload = { id: user.id, name: user.name }; // Create JWT Payload
+        const payload = { id: user.id, name: user.name, role:user.role }; // Create JWT Payload
 
         // Sign Token
         jwt.sign(
@@ -103,10 +121,25 @@ router.post('/login', (req, res) => {
   });
 });
 
+// @route   GET api/users/current
+// @desc    Return current user
+// @access  Private
+router.get(
+  '/current',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    res.json({
+      id: req.user.id,
+      name: req.user.name,
+      email: req.user.email
+    });
+  }
+);
+
 //get api/userjobs/user/:id -- user
 //get api/userjobs/ -- admin
 
-//post api/userjobs/apply/:id user
+//post api/jobs/apply/:id user
 //post api/userjobs/accept/:id admin
 
 

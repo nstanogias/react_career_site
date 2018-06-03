@@ -1,51 +1,39 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 
-router.get('/:id', (req, res) => {
-  let id = req.query.id;
+// Load Job Model
+const Job = require('../../model/Job');
 
-  Job.findById(id, (err, doc) => {
-    if (err) return res.status(400).send(err);
-    res.send(doc);
-  })
-});
+// @route   GET api/jobs/test
+// @desc    Tests job route
+// @access  Public
+router.get('/test', (req, res) => res.json({ msg: 'Jobs Works' }));
 
+
+// @route   GET api/jobs
+// @desc    Get jobs
+// @access  Public
 router.get('/', (req, res) => {
-  Job.find().exec((err, doc) => {
-    if (err) return res.status(400).send(err);
-    res.send(doc);
-  })
+  Job.find()
+    .sort({ date: -1 })
+    .then(jobs => res.json(jobs))
+    .catch(err => res.status(404).json({ nojobsfound: 'No jobs found' }));
 });
 
-router.post('/jobAdd', (req, res) => {
-  const jobAdd = new JobAdd(req.body)
+// @route POST api/jobs
+// @desc Create job
+// @access Private
+router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
+  const newJob = new Job({
+    title: req.body.title,
+    category: req.body.category,
+    country: req.body.country,
+    city: req.body.city,
+    description: req.body.description
+  });
 
-  job.save((err, doc) => {
-    if (err) return res.status(400).send(err);
-    res.status(200).json({
-      post: true,
-      jobAddId: doc._id
-    })
-  })
-});
-
-router.post('/api/job_update', (req, res) => {
-  Job.findByIdAndUpdate(req.body._id, req.body, {new: true}, (err, doc) => {
-    if (err) return res.status(400).send(err);
-    res.json({
-      success: true,
-      doc
-    })
-  })
-});
-
-router.delete('/api/delete_job', (req, res) => {
-  let id = req.query.id;
-
-  Job.findByIdAndRemove(id, (err, doc) => {
-    if (err) return res.status(400).send(err);
-    res.json(true)
-  })
+  newJob.save().then(job => res.json(job));
 });
 
 module.exports = router;
