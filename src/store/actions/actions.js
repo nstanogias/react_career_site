@@ -4,3 +4,7 @@ export {
   setCurrentUser,
   logoutUser
 } from './authActionCreator';
+
+export {
+  fetchJobs
+} from './jobActionCreator';

@@ -1,2 +1,5 @@
 export const GET_ERRORS = 'GET_ERRORS';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+
+export const FETCH_JOBS_START = 'FETCH_JOBS_START';
+export const FETCH_JOBS_SUCCESS = 'FETCH_ALL_JOBS';

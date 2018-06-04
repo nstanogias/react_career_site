@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import { fetchJobs } from "../../store/actions/actions";
 
 class JobList extends Component {
+
+  componentWillMount(){
+    this.props.fetchJobs();
+  }
+
   render() {
     return (
       <div>
@@ -10,4 +17,8 @@ class JobList extends Component {
   }
 }
 
-export default JobList;
+const mapStateToProps = state => ({
+    jobs: state.jobs
+});
+
+export default connect(mapStateToProps, {fetchJobs})(JobList);
