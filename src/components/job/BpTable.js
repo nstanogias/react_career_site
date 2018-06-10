@@ -1,71 +1,34 @@
-import React, {Component} from 'react';
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class BpTable extends Component {
 
   render() {
-    let products = [{
-      title: 1,
-      category: "Product1",
-      location: 120
-    }, {
-      title: 2,
-      category: "Product2",
-      location: 80
-    },
-      {
-        title: 3,
-        category: "Product2",
-        location: 80
-      },
-      {
-        title: 4,
-        category: "Product2",
-        location: 80
-      },
-      {
-        title: 5,
-        category: "Product2",
-        location: 80
-      },
-      {
-        title: 6,
-        category: "Product2",
-        location: 80
-      },
-      {
-        title: 7,
-        category: "Product2",
-        location: 80
-      },
-      {
-        title: 8,
-        category: "Product2",
-        location: 80
-      },
-      {
-        title: 9,
-        category: "Product2",
-        location: 80
-      }
-      ,{
-        title: 10,
-        category: "Product2",
-        location: 80
-      },
-      {
-        title: 11,
-        category: "Product2",
-        location: 80
-      }
-    ];
+
+    const { jobs } = this.props;
+
+    let data = jobs.map(job => (
+      <tr key={job._id}>
+        <td><Link to={`/job/${job._id}`}>{job.title}</Link></td>
+        <td>{job.category}</td>
+        <td>{job.city + ', ' + job.country}</td>
+      </tr>
+    ));
+
 
     return(
-      <BootstrapTable data={products} pagination={ true } striped hover version='4'>
-        <TableHeaderColumn isKey dataField='title'>Job title</TableHeaderColumn>
-        <TableHeaderColumn dataField='category'>Career area</TableHeaderColumn>
-        <TableHeaderColumn dataField='location'>Geographical area</TableHeaderColumn>
-      </BootstrapTable>
+      <div>
+        <table className="table">
+          <thead>
+          <tr>
+            <th>Job Title</th>
+            <th>Career area</th>
+            <th>Location</th>
+          </tr>
+          {data}
+          </thead>
+        </table>
+      </div>
     )
   }
 }

@@ -21,9 +21,20 @@ router.get('/', (req, res) => {
     .catch(err => res.status(404).json({ nojobsfound: 'No jobs found' }));
 });
 
-// @route POST api/jobs
-// @desc Create job
-// @access Private
+// @route   GET api/jobs/:id
+// @desc    Get job by id
+// @access  Public
+router.get('/:id', (req, res) => {
+  Job.findById(req.params.id)
+    .then(job => res.json(job))
+    .catch(err =>
+      res.status(404).json({ nojobfound: 'No job found with that ID' })
+    );
+});
+
+// @route   POST api/jobs
+// @desc    Create job
+// @access  Private
 router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
   const newJob = new Job({
     title: req.body.title,

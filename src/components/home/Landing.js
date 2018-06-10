@@ -16,7 +16,7 @@ class Landing extends Component {
                   Check out current job openings
                 </p>
                 <hr />
-                <Link to="/register" className="btn btn-lg btn-info mr-2">
+                <Link to="/jobs" className="btn btn-lg btn-info mr-2">
                   Job Openings
                 </Link>
               </div>

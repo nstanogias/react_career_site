@@ -15,7 +15,7 @@ class JobList extends Component {
     let jobs = <Loader/>;
 
     if (!this.props.loading) {
-      jobs = <BpTable/>;
+      jobs = <BpTable jobs={this.props.jobs} />;
     }
     return (
       <div>

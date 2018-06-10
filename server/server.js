@@ -5,6 +5,7 @@ const passport = require('passport');
 
 const users = require('./routes/api/user');
 const jobs = require('./routes/api/job');
+const userjobs = require('./routes/api/userjobs');
 
 const app = express();
 
@@ -28,6 +29,7 @@ require('./config/passport')(passport);
 
 app.use('/api/users', users);
 app.use('/api/jobs', jobs);
+app.use('/api/userjobs', userjobs);
 
 
 app.get('/', (req, res) => res.send('Hello World!'));

@@ -55,7 +55,7 @@ class App extends Component {
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/jobs" component={JobList}/>
-                <Route exact path="/jobs/:id" component={JobView}/>
+                <Route exact path="/job/:id" component={JobView}/>
                 <Route exact path="/jobs/add" component={AddJob}/>
                 <Switch>
                   <PrivateRoute exact path="/dashboard" component={Dashboard} />
