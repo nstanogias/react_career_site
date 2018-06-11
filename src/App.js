@@ -17,7 +17,6 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dashboard from './components/dashboard/DashBoard';
 import PrivateRoute from './components/common/PrivateRoute';
-import AddJob from './components/job/AddJob';
 import JobList from './components/job/JobList';
 import JobView from './components/job/JobView';
 
@@ -56,7 +55,6 @@ class App extends Component {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/jobs" component={JobList}/>
                 <Route exact path="/job/:id" component={JobView}/>
-                <Route exact path="/jobs/add" component={AddJob}/>
                 <Switch>
                   <PrivateRoute exact path="/dashboard" component={Dashboard} />
                 </Switch>

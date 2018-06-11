@@ -35,6 +35,10 @@ class JobView extends Component {
     this.props.addJobToUser(userjobdata);
   };
 
+  deleteJobHandler = () => {
+
+  };
+
   render() {
     const { job } = this.props.jobs;
     const { isAuthenticated, user } = this.props.auth;
@@ -69,9 +73,21 @@ class JobView extends Component {
             <p className="lead"> {job.description} </p>
           </div>
           {user.role === 1 ? (
-              <button disabled={this.state.disabled} type="button" class="btn btn-danger">Delete this job</button>
+              <button
+                disabled={this.state.disabled}
+                type="button" class="btn btn-danger"
+                onClick={this.deleteJobHandler}
+              >
+                Delete this job
+              </button>
             ) : (
-              <button type="button" class="btn btn-primary" onClick={this.applyJobHandler}>Apply for this job</button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                onClick={this.applyJobHandler}
+              >
+                Apply for this job
+              </button>
           )}
         </div>
       );
