@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
-import { getJobById } from "../../store/actions/jobActionCreator";
+import { getJobById, deleteJob } from "../../store/actions/jobActionCreator";
 import { Message } from 'semantic-ui-react'
 import { addJobToUser} from "../../store/actions/userJobsActionsCreator";
 
@@ -27,16 +27,17 @@ class JobView extends Component {
   };
 
   applyJobHandler = (e) => {
-    this.setState({msgVisibility: true});
+    this.setState({msgVisibility: true, disabled: !this.state.disabled});
     let userjobdata = {
-      jobId: "",
+      jobId: this.props.jobs.job.id,
       userId: ""
     };
     this.props.addJobToUser(userjobdata);
   };
 
   deleteJobHandler = () => {
-
+    this.setState({msgVisibility: true, disabled: !this.state.disabled});
+    this.props.deleteJob(this.props.jobs.job.id);
   };
 
   render() {
@@ -54,6 +55,12 @@ class JobView extends Component {
       msg = <Message warning onDismiss={this.handleDismiss}>
         <Message.Header>You must register before you can do that!</Message.Header>
         <p>Visit our registration page, then try again.</p>
+      </Message>
+    }
+
+    if(isAuthenticated && user.role === 1) {
+      msg = <Message success onDismiss={this.handleDismiss}>
+        <Message.Header>You have successfully deleted this job</Message.Header>
       </Message>
     }
 
@@ -75,15 +82,17 @@ class JobView extends Component {
           {user.role === 1 ? (
               <button
                 disabled={this.state.disabled}
-                type="button" class="btn btn-danger"
+                type="button"
+                className="btn btn-danger"
                 onClick={this.deleteJobHandler}
               >
                 Delete this job
               </button>
             ) : (
               <button
+                disabled={this.state.disabled}
                 type="button"
-                class="btn btn-primary"
+                className="btn btn-primary"
                 onClick={this.applyJobHandler}
               >
                 Apply for this job
@@ -106,10 +115,10 @@ class JobView extends Component {
 }
 
 const mapStateToProps = state => {
-  return{
+  return {
     auth: state.auth,
     jobs: state.jobs
   }
 };
 
-export default connect(mapStateToProps, { getJobById, addJobToUser })(JobView);
+export default connect(mapStateToProps, { getJobById, addJobToUser, deleteJob })(JobView);

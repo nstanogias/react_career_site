@@ -20,9 +20,19 @@ export default function(state = initialState, action) {
         loading: true
       };
     case actionType.FETCH_JOB:
-      return{
+      return {
         ...state,
         job: action.payload
+      };
+    case actionType.ADD_JOB:
+      return {
+        ...state,
+        jobs: [action.payload, ...state.jobs]
+      };
+    case actionType.DELETE_JOB:
+      return {
+        ...state,
+        jobs: state.jobs.filter(job => job.id !== job.payload)
       };
     default:
       return state;

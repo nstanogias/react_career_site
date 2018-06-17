@@ -53,13 +53,37 @@ export const getJobById = id => {
 };
 
 export const addJob = jobData => {
-  return dispach => {
+  return dispatch => {
     axios.post('/api/jobs/', jobData)
       .then(res => {
-        dispach({
+        dispatch({
           type: actionTypes.ADD_JOB,
           payload: res.data
         })
       })
+      .catch(err =>
+        dispatch({
+          type: actionTypes.GET_ERRORS,
+          payload: err.response.data
+        })
+      );
+  }
+};
+
+export const deleteJob = id => {
+  return dispatch => {
+    axios.delete(`api/jobs/${id}`)
+      .then(res => {
+        dispatch({
+          type: actionTypes.DELETE_JOB,
+          payload: id
+        })
+      })
+      .catch(err =>
+        dispatch({
+          type: actionTypes.GET_ERRORS,
+          payload: err.response.data
+        })
+      )
   }
 };

@@ -8,7 +8,7 @@ const Job = require('../../model/Job');
 // @route   GET api/jobs/test
 // @desc    Tests job route
 // @access  Public
-router.get('/test', (req, res) => res.json({ msg: 'Jobs Works' }));
+router.get('/test', (req, res) => res.json({msg: 'Jobs Works'}));
 
 
 // @route   GET api/jobs
@@ -16,9 +16,9 @@ router.get('/test', (req, res) => res.json({ msg: 'Jobs Works' }));
 // @access  Public
 router.get('/', (req, res) => {
   Job.find()
-    .sort({ date: -1 })
+    .sort({date: -1})
     .then(jobs => res.json(jobs))
-    .catch(err => res.status(404).json({ nojobsfound: 'No jobs found' }));
+    .catch(err => res.status(404).json({nojobsfound: 'No jobs found'}));
 });
 
 // @route   GET api/jobs/:id
@@ -28,7 +28,7 @@ router.get('/:id', (req, res) => {
   Job.findById(req.params.id)
     .then(job => res.json(job))
     .catch(err =>
-      res.status(404).json({ nojobfound: 'No job found with that ID' })
+      res.status(404).json({nojobfound: 'No job found with that ID'})
     );
 });
 
@@ -46,5 +46,18 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
 
   newJob.save().then(job => res.json(job));
 });
+
+// @route   DELETE api/jobs/:id
+// @desc    Delete job
+// @access  Private
+router.delete('/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
+    Job.findById(req.params.id)
+      .then(job => {
+        // Delete
+        job.remove().then(() => res.json({success: true}));
+      })
+      .catch(err => res.status(404).json({jobnotfound: 'No job found'}));
+  }
+);
 
 module.exports = router;

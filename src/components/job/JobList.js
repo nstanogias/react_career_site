@@ -1,48 +1,70 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { fetchJobs } from "../../store/actions/actions";
-import BpTable from './BpTable';
+import { fetchJobs, addJob } from "../../store/actions/actions";
+import JobListTable from './JobListTable';
 import Loader from '../common/Spinner';
+import SelectListGroup from '../common/SelectListGroup';
+import TextFieldGroup from '../common/TextFieldGroup';
+import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 
 class JobList extends Component {
 
   constructor() {
     super();
     this.state = {
-      modalVisible: false
-    }
+      title: '',
+      category: '',
+      country: '',
+      city: '',
+      description: ''
+    };
+
+    this.onChange = this.onChange.bind(this);
   }
   componentWillMount() {
     this.props.fetchJobs();
   }
 
   addJobHandler = () => {
-    this.setState({modalVisible: true})
+    console.log(this.state);
+    const newJob = {
+      title: this.state.title,
+      category: this.state.category,
+      country: this.state.country,
+      city: this.state.city,
+      description: this.state.description
+    };
+
+    this.props.addJob(newJob);
   };
+
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
 
   render() {
     const { jobs, loading } = this.props.jobs;
     const { isAuthenticated } = this.props.auth;
 
     // Select options for status
-    const optionsCategory = [
-      { label: '* Select Career area', value: 0 },
+    const categoryOptions = [
+      { label: 'Choose career area', value: 'Choose career area' },
       { label: 'Financial', value: 'Financial' },
       { label: 'Intern', value: 'Intern' },
       { label: 'IT', value: 'IT' }
     ];
 
     // Select options for country
-    const optionsCountry = [
-      { label: '* country', value: 0 },
+    const countryOptions = [
+      { label: 'Choose country', value: 'Choose country'},
       { label: 'Denmark', value: 'Denmark' },
       { label: 'Sweden', value: 'Sweden' },
       { label: 'Norway', value: 'Norway' }
     ];
 
     // Select options for city
-    const optionsCity = [
-      { label: '* Select Career area', value: 0 },
+    const cityOptions = [
+      { label: 'Choose city', value: 'Choose city'},
       { label: 'Copenhagen', value: 'Copenhagen' },
       { label: 'Stockholm', value: 'Stockholm' },
       { label: 'Oslo', value: 'Oslo' }
@@ -51,13 +73,13 @@ class JobList extends Component {
     let content = <Loader/>;
 
     if (!loading) {
-      content = <BpTable jobs={jobs} />;
+      content = <JobListTable jobs={jobs} />;
     }
     return (
       <div>
         {isAuthenticated ? (
           <button
-            type="button" class="btn btn-primary"
+            type="button" className="btn btn-primary"
             data-toggle="modal" data-target="#exampleModal"
           >
             Add job
@@ -68,30 +90,56 @@ class JobList extends Component {
         <h2>Jobs list</h2>
         {content}
         <div>
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">New Job Details</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="exampleModalLabel">New Job Details</h5>
+                  <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="modal-body">
+                <div className="modal-body">
                   <form>
-                    <div class="form-group">
-                      <label for="recipient-name" class="col-form-label">Recipient:</label>
-                      <input type="text" class="form-control" id="recipient-name"/>
-                    </div>
-                    <div class="form-group">
-                      <label for="message-text" class="col-form-label">Message:</label>
-                      <textarea class="form-control" id="message-text"></textarea>
-                    </div>
+                    <TextFieldGroup
+                      name="title"
+                      value={this.state.title}
+                      type="text"
+                      onChange={this.onChange}
+                      label="Job title"
+                    />
+                    <SelectListGroup
+                      placeholder="Career area"
+                      name="category"
+                      value={this.state.category}
+                      onChange={this.onChange}
+                      options={categoryOptions}
+                    />
+                    <SelectListGroup
+                      placeholder="Country"
+                      name="country"
+                      value={this.state.country}
+                      onChange={this.onChange}
+                      options={countryOptions}
+                    />
+                    <SelectListGroup
+                      placeholder="City"
+                      name="city"
+                      value={this.state.city}
+                      onChange={this.onChange}
+                      options={cityOptions}
+                    />
+                    <TextAreaFieldGroup
+                      name="description"
+                      value={this.state.description}
+                      onChange={this.onChange}
+                      placeholder="Job description"
+                    />
                   </form>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                  <button type="button" class="btn btn-primary">Add Job</button>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-danger" data-dismiss="modal">Cancel</button>
+                  <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.addJobHandler}>Add Job</button>
                 </div>
               </div>
             </div>
@@ -107,4 +155,4 @@ const mapStateToProps = state => ({
     auth:state.auth
 });
 
-export default connect(mapStateToProps, { fetchJobs } )(JobList);
+export default connect(mapStateToProps, { fetchJobs, addJob } )(JobList);

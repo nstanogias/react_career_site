@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-class BpTable extends Component {
+class JobListTable extends Component {
 
   render() {
 
@@ -33,4 +33,4 @@ class BpTable extends Component {
   }
 }
 
-export default BpTable;
+export default JobListTable;

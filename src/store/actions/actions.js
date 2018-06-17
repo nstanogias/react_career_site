@@ -6,5 +6,7 @@ export {
 } from './authActionCreator';
 
 export {
-  fetchJobs
+  fetchJobs,
+  addJob,
+  deleteJob
 } from './jobActionCreator';
