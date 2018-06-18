@@ -29,9 +29,10 @@ class JobView extends Component {
   applyJobHandler = (e) => {
     this.setState({msgVisibility: true, disabled: !this.state.disabled});
     let userjobdata = {
-      jobId: this.props.jobs.job.id,
-      userId: ""
+      jobId: this.props.jobs.job._id,
+      userId: this.props.auth.user.id
     };
+    console.log(userjobdata);
     this.props.addJobToUser(userjobdata);
   };
 
