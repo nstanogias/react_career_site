@@ -44,7 +44,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
     description: req.body.description
   });
 
-  newJob.save().then(job => res.json(job));
+  newJob.save().then(job => res.json(job)).catch(err => res.status(400).json(err.errors.description.message));
 });
 
 // @route   DELETE api/jobs/:id

@@ -19,7 +19,6 @@ const jobSchema = mongoose.Schema({
   },
   description: {
     type: String,
-    required: true
   },
   date: {
     type: Date,

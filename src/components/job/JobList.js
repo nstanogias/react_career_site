@@ -77,18 +77,34 @@ class JobList extends Component {
     }
     return (
       <div>
+        <div className="row bg-primary text-white">
+        <form>
+          <div className="form-group row">
+            <label for="staticEmail" className="col-2 col-form-label">Email</label>
+            <div className="col-10">
+              <input type="text" readonly className="form-control-plaintext" id="staticEmail" value="email@example.com"/>
+            </div>
+          </div>
+          <div className="form-group row">
+            <label for="inputPassword" className="col-2 col-form-label">Password</label>
+            <div className="col-10">
+              <input type="password" className="form-control" id="inputPassword" placeholder="Password"/>
+            </div>
+          </div>
+        </form>
+        </div>
+        <h2 style={{textAlign: 'center' }}>Jobs list</h2>
+        {content}
         {isAuthenticated ? (
-          <button
-            type="button" className="btn btn-primary"
-            data-toggle="modal" data-target="#exampleModal"
-          >
-            Add job
-          </button>
-        )
+            <button
+              type="button" className="btn btn-primary"
+              data-toggle="modal" data-target="#exampleModal"
+            >
+              Add job
+            </button>
+          )
           : null
         }
-        <h2>Jobs list</h2>
-        {content}
         <div>
           <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog" role="document">
