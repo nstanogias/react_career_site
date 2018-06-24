@@ -6,6 +6,7 @@ import Loader from '../common/Spinner';
 import SelectListGroup from '../common/SelectListGroup';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
+import { Dropdown } from 'semantic-ui-react'
 
 class JobList extends Component {
 
@@ -70,6 +71,8 @@ class JobList extends Component {
       { label: 'Oslo', value: 'Oslo' }
     ];
 
+    const countryOptions1 = [ { key: 'dk', value: 'dk', flag: 'dk', text: 'Denmark' }, { key: 'gr', value: 'gr', flag: 'gr', text: 'Greece' }  ]
+
     let content = <Loader/>;
 
     if (!loading) {
@@ -77,23 +80,19 @@ class JobList extends Component {
     }
     return (
       <div>
-        <div className="row bg-primary text-white">
-        <form>
-          <div className="form-group row">
-            <label for="staticEmail" className="col-2 col-form-label">Email</label>
-            <div className="col-10">
-              <input type="text" readonly className="form-control-plaintext" id="staticEmail" value="email@example.com"/>
-            </div>
+        <div className="row mb-5" style={{width: '70%',backgroundColor: '#FDECE5'}}>
+          <div className="col-md-4 mt-4 mb-4 dropdown-wrapper">
+            <Dropdown className="dropdown" placeholder='Select Country' search selection options={countryOptions1} />
+            <Dropdown className="dropdown" placeholder='Select Country' search selection options={countryOptions1} />
           </div>
-          <div className="form-group row">
-            <label for="inputPassword" className="col-2 col-form-label">Password</label>
-            <div className="col-10">
-              <input type="password" className="form-control" id="inputPassword" placeholder="Password"/>
-            </div>
+          <div className="col-md-4 mt-4 mb-4">
+            <Dropdown placeholder='Select Country' search selection options={countryOptions1} />
           </div>
-        </form>
+          <div className="col-md-4 mt-4 mb-4 align-self-end">
+            <Dropdown placeholder='Select Country' search selection options={countryOptions1} />
+          </div>
         </div>
-        <h2 style={{textAlign: 'center' }}>Jobs list</h2>
+        <h2 style={{textAlign: 'center', marginTop: '4px' }}>Jobs list</h2>
         {content}
         {isAuthenticated ? (
             <button

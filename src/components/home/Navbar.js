@@ -14,13 +14,23 @@ class Navbar extends Component {
 
   render() {
 
-    const { isAuthenticated } = this.props.auth;
+    const { isAuthenticated, user } = this.props.auth;
 
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
+          <Link className="nav-link text-white" to="/profile">
+            My Profile
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link text-white" to={user.role === 1 ? "/AppliedJobsAdminView" : "/AppliedJobsView"}>
+            Applied Jobs
+          </Link>
+        </li>
+        <li className="nav-item">
           <a
-            className="nav-link"
+            className="nav-link text-white"
             href=""
             onClick={this.onLogoutClick.bind(this)}
           >
@@ -48,7 +58,7 @@ class Navbar extends Component {
     return (
       <nav className="navbar navbar-expand-sm mb-4">
         <div className="container">
-          <Link className="navbar-brand" to="/">
+          <Link className="navbar-brand text-white" to="/">
             {/*<img src="../../assets/images/img3.png" width="160" height="40"/>*/}
             {/*<img src="../../assets/images/im.png" className="img-fluid" style={{height: 'auto', maxWidth: '100%', objectFit: 'contain'}}/>*/}
             Nordea
