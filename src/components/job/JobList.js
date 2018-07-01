@@ -102,13 +102,8 @@ class JobList extends Component {
 
     let content = <Loader/>;
 
-    let filteredJobs = jobs.filter(job => {
-      return job.country === this.state.country &&
-        job.city === this.state.city
-    });
-
     if (!loading) {
-      content = <JobListTable jobs={filteredJobs}/>;
+      content = <JobListTable jobs={jobs}/>;
     }
 
     return (

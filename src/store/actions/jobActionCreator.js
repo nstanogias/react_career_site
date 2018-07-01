@@ -72,7 +72,7 @@ export const addJob = jobData => {
 
 export const deleteJob = id => {
   return dispatch => {
-    axios.delete(`api/jobs/${id}`)
+    axios.delete(`/api/jobs/${id}`)
       .then(res => {
         dispatch({
           type: actionTypes.DELETE_JOB,
