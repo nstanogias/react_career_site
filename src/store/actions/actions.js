@@ -10,3 +10,10 @@ export {
   addJob,
   deleteJob
 } from './jobActionCreator';
+
+export {
+  fetchUsersJobs,
+  getUserJobsByJobId,
+  getUserJobsByUserId,
+  addJobToUser
+} from './userJobsActionsCreator';

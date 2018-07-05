@@ -15,15 +15,10 @@ class DashBoard extends Component {
       </div>
     );
 
-    let buttons = null;
-
-    if(user.role === 0) {
-     buttons = ( <Link to="/jobs" className="btn btn-lg btn-info">
+     let buttons = ( <Link to="/jobs" className="btn btn-lg btn-info">
         Current Jobs
-      </Link>)
-    } else {
+      </Link>);
 
-    }
 
     return (
       <div className="container">

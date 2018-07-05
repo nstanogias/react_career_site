@@ -4,18 +4,19 @@ import {connect} from 'react-redux';
 import { getJobById, deleteJob } from "../../store/actions/jobActionCreator";
 import { Message } from 'semantic-ui-react'
 import { addJobToUser} from "../../store/actions/userJobsActionsCreator";
+import { getUserJobsByJobId } from "../../store/actions/userJobsActionsCreator";
 
 class JobView extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      disabled: false,
       msgVisibility: false
     }
   }
 
   componentWillMount() {
+    this.props.getUserJobsByJobId(this.props.match.params.id);
     console.log("id is ", this.props.match.params.id);
     if (this.props.match.params.id) {
       this.props.getJobById(this.props.match.params.id);
@@ -27,7 +28,7 @@ class JobView extends Component {
   };
 
   applyJobHandler = (e) => {
-    this.setState({msgVisibility: true, disabled: !this.state.disabled});
+    this.setState({msgVisibility: true});
     let userjobdata = {
       jobId: this.props.jobs.job._id,
       userId: this.props.auth.user.id
@@ -37,13 +38,27 @@ class JobView extends Component {
   };
 
   deleteJobHandler = () => {
-    this.setState({msgVisibility: true, disabled: !this.state.disabled});
-    this.props.deleteJob(this.props.jobs.job.id);
+    this.setState({msgVisibility: true});
+    this.props.deleteJob(this.props.jobs.job._id);
   };
 
   render() {
     const { job } = this.props.jobs;
     const { isAuthenticated, user } = this.props.auth;
+    const { userjobs } = this.props.userjobs;
+
+    //check if this user has already applied for this job
+    let userHasApplied = false;
+    userjobs.forEach(userjob => {
+      if(userjob.userId === user.id) {
+        userHasApplied = true;
+      }
+    });
+
+    //check if this job is deleted
+
+    console.log("this user has applied", userHasApplied);
+
     let jobContent = null;
 
     let msg = (
@@ -76,13 +91,14 @@ class JobView extends Component {
               </Link>
             </div>
           </div>
+          {userHasApplied && <h4 className="text-center text-success">You have applied for this job!</h4>}
           <div className="card card-body bg-light mb-3">
             <h3 className="text-center text-info">{job.title}</h3>
             <p className="lead"> {job.description} </p>
           </div>
           {user.role === 1 ? (
               <button
-                disabled={this.state.disabled}
+                // disabled={this.state.disabled}
                 type="button"
                 className="btn btn-danger"
                 onClick={this.deleteJobHandler}
@@ -91,7 +107,7 @@ class JobView extends Component {
               </button>
             ) : (
               <button
-                disabled={this.state.disabled}
+                disabled={userHasApplied}
                 type="button"
                 className="btn btn-primary"
                 onClick={this.applyJobHandler}
@@ -118,8 +134,9 @@ class JobView extends Component {
 const mapStateToProps = state => {
   return {
     auth: state.auth,
-    jobs: state.jobs
+    jobs: state.jobs,
+    userjobs: state.userjobs
   }
 };
 
-export default connect(mapStateToProps, { getJobById, addJobToUser, deleteJob })(JobView);
+export default connect(mapStateToProps, { getJobById, addJobToUser, deleteJob, getUserJobsByJobId })(JobView);
