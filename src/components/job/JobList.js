@@ -44,7 +44,15 @@ class JobList extends Component {
     this.setState({[e.target.name]: e.target.value});
   }
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value })
+  handleChange = (e, {name, value}) => this.setState({[name]: value});
+
+  clearFilters = () => {
+    this.setState({
+      category: '',
+      country: '',
+      city: '',
+    })
+  };
 
 
   render() {
@@ -76,6 +84,7 @@ class JobList extends Component {
     ];
 
     const countryOptions1 = [
+      {key: 'all', value: 'all', text: 'Choose country'},
       {key: 'Denmark', value: 'Denmark', flag: 'dk', text: 'Denmark'},
       {key: 'Greece', value: 'Greece', flag: 'gr', text: 'Greece'},
       {key: 'Sweden', value: 'Sweden', flag: 'se', text: 'Sweden'},
@@ -83,18 +92,31 @@ class JobList extends Component {
     ];
 
     const cityOptions1 = {
-      Denmark: [{key: 'cph', value: 'Copenhagen', text: 'Copenhagen'}, {key: 'ar', value: 'Arhus', text: 'Arhus'}],
-      Sweden: [{key: 'st', value: 'Stockholm', text: 'Stockholm'}, {key: 'lu', value: 'Lund', text: 'Lund'}],
-      Norway: [{key: 'os', value: 'Oslo', text: 'Oslo'}, {key: 'br', value: 'Bergen', text: 'Bergen'}],
-      Greece: [{key: 'th', value: 'Thessaloniki', text: 'Thessaloniki'}, {key: 'ath', value: 'Athens', text: 'Athens'}]
+      Denmark: [{key: 'all', value: 'all', text: 'Choose city'},
+        {key: 'cph', value: 'Copenhagen', text: 'Copenhagen'},
+        {key: 'ar', value: 'Arhus', text: 'Arhus'}
+      ],
+      Sweden: [{key: 'all', value: 'all', text: 'Choose city'},
+        {key: 'st', value: 'Stockholm', text: 'Stockholm'},
+        {key: 'lu', value: 'Lund', text: 'Lund'}
+      ],
+      Norway: [{key: 'all', value: 'all', text: 'Choose city'},
+        {key: 'os', value: 'Oslo', text: 'Oslo'},
+        {key: 'br', value: 'Bergen', text: 'Bergen'}
+      ],
+      Greece: [{key: 'all', value: 'all', text: 'Choose city'},
+        {key: 'th', value: 'Thessaloniki', text: 'Thessaloniki'},
+        {key: 'ath', value: 'Athens', text: 'Athens'}
+      ]
     };
 
     const categoryOptions1 = [
-      {key: 'it', value: '', text: 'IT'},
-      {key: 'fin', value: '', text: 'Finance'},
-      {key: 'in', value: 'in', text: 'Intern'},
-      {key: 'hr', value: 'hr', text: 'Human Resources'}
-      ];
+      {key: 'all', value: 'all', text: 'Choose career area'},
+      {key: 'it', value: 'IT', text: 'IT'},
+      {key: 'fin', value: 'Financial', text: 'Financial'},
+      {key: 'in', value: 'Intern', text: 'Intern'},
+      {key: 'hr', value: 'Human Resources', text: 'Human Resources'}
+    ];
 
 
     console.log(cityOptions1[this.state.country]);
@@ -102,10 +124,24 @@ class JobList extends Component {
 
     let content = <Loader/>;
 
-    let filteredJobs = jobs.filter(job => {
-      return job.country === this.state.country &&
-        job.city === this.state.city
-    });
+    let filteredJobs = jobs;
+
+    if (this.state.country !== '' && this.state.country !== 'all') {
+      filteredJobs = filteredJobs.filter(job => {
+        return job.country === this.state.country
+      });
+      if (this.state.city !== '' && this.state.city !== 'all') {
+        filteredJobs = filteredJobs.filter(job => {
+          return job.city === this.state.city
+        });
+      }
+    }
+
+    if (this.state.category !== '' && this.state.category !== 'all') {
+      filteredJobs = filteredJobs.filter(job => {
+        return job.category === this.state.category
+      });
+    }
 
     if (!loading) {
       content = <JobListTable jobs={filteredJobs}/>;
@@ -129,6 +165,7 @@ class JobList extends Component {
               placeholder='Choose City'
               search
               selection
+              disabled={this.state.country === '' || this.state.country === 'all'}
               options={cityOptions1[this.state.country]}
               name='city'
               onChange={this.handleChange}
@@ -145,8 +182,8 @@ class JobList extends Component {
             />
           </div>
           <div className="col-md-4 mt-4 mb-4 align-self-end">
-            <button type="button" className="btn btn-link">Clear filters</button>
-            <button type="button" className="btn btn-primary rounded" style={{borderRadius: '50%'}}>Search</button>
+            <button type="button" className="btn btn-link" style={{color: '#0000a0'}} onClick={this.clearFilters}>Clear all filters</button>
+            <button type="button" className="btn btn-primary search-btn">Search</button>
           </div>
         </div>
         <h2 style={{textAlign: 'center', marginTop: '4px'}}>Jobs list</h2>

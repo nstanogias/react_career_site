@@ -58,3 +58,14 @@
 .dropdown-wrapper .dropdown {
   margin-bottom:5px;
 }
+
+.search-btn {
+  border-radius: 32px;
+  text-decoration: none;
+  padding-right: .75em;
+  padding-left: .75em;
+  color: #0000a0;
+  background-color: #99ccff;
+  font-weight: bold;
+  border-color: transparent;
+}
