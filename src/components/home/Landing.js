@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 class Landing extends Component {
 
@@ -15,7 +15,7 @@ class Landing extends Component {
                   {' '}
                   Check out current job openings
                 </p>
-                <hr />
+                <hr/>
                 <Link to="/jobs" className="btn btn-lg btn-info mr-2">
                   Job Openings
                 </Link>

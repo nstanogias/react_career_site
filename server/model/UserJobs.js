@@ -9,6 +9,10 @@ const userJobsSchema  = mongoose.Schema({
     type: String,
     required: true
   },
+  profileNickname: {
+    type: String,
+    required: true
+  },
   isAccepted: {
     type: Number,
     default: 0

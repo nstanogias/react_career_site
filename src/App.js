@@ -19,7 +19,10 @@ import Dashboard from './components/dashboard/DashBoard';
 import PrivateRoute from './components/common/PrivateRoute';
 import JobList from './components/job/JobList';
 import JobView from './components/job/JobView';
-
+import AppliedJobsView from './components/job/AppliedJobsView';
+import CreateProfile from './components/create-profile/CreateProfile';
+import EditProfile from './components/edit-profile/EditProfile';
+import Profile from './components/profile/Profile';
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -53,10 +56,20 @@ class App extends Component {
               <div className="container">
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/jobs" component={JobList}/>
-                <Route exact path="/job/:id" component={JobView}/>
+                <Route exact path="/jobs" component={JobList} />
+                <Route exact path="/job/:id" component={JobView} />
+                <Route exact path="/profile/:nickname" component={Profile} />
                 <Switch>
                   <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                </Switch>
+                <Switch>
+                  <PrivateRoute exact path="/appliedJobs" component={AppliedJobsView} />
+                </Switch>
+                <Switch>
+                  <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+                </Switch>
+                <Switch>
+                  <PrivateRoute exact path="/edit-profile" component={EditProfile} />
                 </Switch>
               </div>
               <Footer />

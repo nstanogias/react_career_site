@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { registerUser } from "../../store/actions/actions";
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import {registerUser} from "../../store/actions/actions";
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 
 class Register extends Component {
   constructor() {
@@ -21,7 +21,7 @@ class Register extends Component {
   }
 
   onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
   }
 
   componentWillReceiveProps(nextProps) {
@@ -44,7 +44,7 @@ class Register extends Component {
   }
 
   render() {
-    const { errors } = this.state;
+    const {errors} = this.state;
 
     return (
       <div className="register">
@@ -116,7 +116,7 @@ class Register extends Component {
                     <div className="invalid-feedback">{errors.password2}</div>
                   )}
                 </div>
-                <input type="submit" className="btn btn-info btn-block mt-4" />
+                <input type="submit" className="btn btn-info btn-block mt-4"/>
               </form>
             </div>
           </div>
@@ -132,9 +132,11 @@ Register.propTypes = {
   errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth,
-  errors:state.errors
-});
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+    errors: state.errors
+  }
+};
 
 export default connect(mapStateToProps, {registerUser})(withRouter(Register));

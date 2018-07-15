@@ -2,7 +2,7 @@ import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
 
-import { GET_ERRORS, SET_CURRENT_USER } from './actionTypes';
+import {GET_ERRORS, SET_CURRENT_USER} from './actionTypes';
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
@@ -23,7 +23,7 @@ export const loginUser = userData => dispatch => {
     .post('/api/users/login', userData)
     .then(res => {
       // Save to localStorage
-      const { token } = res.data;
+      const {token} = res.data;
       // Set token to ls
       localStorage.setItem('jwtToken', token);
       // Set token to Auth header
@@ -31,7 +31,6 @@ export const loginUser = userData => dispatch => {
       // Decode token to get user data
       const decoded = jwt_decode(token);
       // Set current user
-      console.log(decoded);
       dispatch(setCurrentUser(decoded));
     })
     .catch(err =>

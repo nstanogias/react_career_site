@@ -14,11 +14,20 @@ router.get('/test', (req, res) => res.json({ msg: 'UserJobs Works' }));
 // @desc    Assign user to job
 // @access  Private
 router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
-  const newUserJob = new UserJobs({
-    userId: req.body.userId,
-    jobId: req.body.jobId
+  UserJobs.findOne({ userId: req.body.userId, jobId: req.body.jobId, profileNickname: req.body.profileNickname}).then(userjob => {
+    if(userjob) {
+      // Update
+
+    } else {
+      // Create
+      const newUserJob = new UserJobs({
+        userId: req.body.userId,
+        jobId: req.body.jobId,
+        profileNickname: req.body.profileNickname
+      });
+      newUserJob.save().then(userjob => res.json(userjob));
+    }
   });
-  newUserJob.save().then(userjob => res.json(userjob));
 });
 
 // @route   GET api/userjobs

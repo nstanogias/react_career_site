@@ -41,16 +41,15 @@ class Login extends Component {
       password: this.state.password
     };
 
-    console.log(userData);
     this.props.loginUser(userData);
   }
 
   onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
   }
 
   render() {
-    const { errors } = this.state;
+    const {errors} = this.state;
 
     return (
       <div className="login">
@@ -80,7 +79,7 @@ class Login extends Component {
                   onChange={this.onChange}
                 />
 
-                <input type="submit" className="btn btn-info btn-block mt-4" />
+                <input type="submit" className="btn btn-info btn-block mt-4"/>
               </form>
             </div>
           </div>

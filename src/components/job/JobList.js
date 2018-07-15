@@ -13,11 +13,14 @@ class JobList extends Component {
   constructor() {
     super();
     this.state = {
-      title: '',
-      category: '',
-      country: '',
-      city: '',
-      description: ''
+      newTitle: '',
+      newCategory: '',
+      newCountry: '',
+      newCity: '',
+      newDescription: '',
+      selectedCountry: '',
+      selectedCity: '',
+      selectedCategory: ''
     };
 
     this.onChange = this.onChange.bind(this);
@@ -28,13 +31,12 @@ class JobList extends Component {
   }
 
   addJobHandler = () => {
-    console.log(this.state);
     const newJob = {
-      title: this.state.title,
-      category: this.state.category,
-      country: this.state.country,
-      city: this.state.city,
-      description: this.state.description
+      title: this.state.newTitle,
+      category: this.state.newCategory,
+      country: this.state.newCountry,
+      city: this.state.newCity,
+      description: this.state.newDescription
     };
 
     this.props.addJob(newJob);
@@ -57,7 +59,7 @@ class JobList extends Component {
 
   render() {
     const {jobs, loading} = this.props.jobs;
-    const {isAuthenticated} = this.props.auth;
+    const {isAuthenticated, user} = this.props.auth;
 
     // Select options for status
     const categoryOptions = [
@@ -118,28 +120,24 @@ class JobList extends Component {
       {key: 'hr', value: 'Human Resources', text: 'Human Resources'}
     ];
 
-
-    console.log(cityOptions1[this.state.country]);
-    console.log("country is", this.state.country);
-
     let content = <Loader/>;
 
     let filteredJobs = jobs;
 
-    if (this.state.country !== '' && this.state.country !== 'all') {
+    if (this.state.selectedCountry !== '' && this.state.selectedCountry !== 'all') {
       filteredJobs = filteredJobs.filter(job => {
-        return job.country === this.state.country
+        return job.country === this.state.selectedCountry
       });
-      if (this.state.city !== '' && this.state.city !== 'all') {
+      if (this.state.selectedCity !== '' && this.state.selectedCity !== 'all') {
         filteredJobs = filteredJobs.filter(job => {
-          return job.city === this.state.city
+          return job.city === this.state.selectedCity
         });
       }
     }
 
-    if (this.state.category !== '' && this.state.category !== 'all') {
+    if (this.state.selectedCategory !== '' && this.state.selectedCategory !== 'all') {
       filteredJobs = filteredJobs.filter(job => {
-        return job.category === this.state.category
+        return job.category === this.state.selectedCategory
       });
     }
 
@@ -157,7 +155,7 @@ class JobList extends Component {
               search
               selection
               options={countryOptions1}
-              name='country'
+              name='selectedCountry'
               onChange={this.handleChange}
             />
             <Dropdown
@@ -165,9 +163,9 @@ class JobList extends Component {
               placeholder='Choose City'
               search
               selection
-              disabled={this.state.country === '' || this.state.country === 'all'}
-              options={cityOptions1[this.state.country]}
-              name='city'
+              disabled={this.state.selectedCountry === '' || this.state.selectedCountry === 'all'}
+              options={cityOptions1[this.state.selectedCountry]}
+              name='selectedCity'
               onChange={this.handleChange}
             />
           </div>
@@ -177,18 +175,20 @@ class JobList extends Component {
               search
               selection
               options={categoryOptions1}
-              name='category'
+              name='selectedCategory'
               onChange={this.handleChange}
             />
           </div>
           <div className="col-md-4 mt-4 mb-4 align-self-end">
-            <button type="button" className="btn btn-link" style={{color: '#0000a0'}} onClick={this.clearFilters}>Clear all filters</button>
+            <button type="button" className="btn btn-link" style={{color: '#0000a0'}} onClick={this.clearFilters}>Clear
+              all filters
+            </button>
             <button type="button" className="btn btn-primary search-btn">Search</button>
           </div>
         </div>
         <h2 style={{textAlign: 'center', marginTop: '4px'}}>Jobs list</h2>
         {content}
-        {isAuthenticated ? (
+        {(isAuthenticated && user.role === 1) ? (
             <button
               type="button" className="btn btn-primary"
               data-toggle="modal" data-target="#exampleModal"
@@ -212,36 +212,36 @@ class JobList extends Component {
                 <div className="modal-body">
                   <form>
                     <TextFieldGroup
-                      name="title"
-                      value={this.state.title}
+                      name="newTitle"
+                      value={this.state.newTitle}
                       type="text"
                       onChange={this.onChange}
                       label="Job title"
                     />
                     <SelectListGroup
                       placeholder="Career area"
-                      name="category"
-                      value={this.state.category}
+                      name="newCategory"
+                      value={this.state.newCategory}
                       onChange={this.onChange}
                       options={categoryOptions}
                     />
                     <SelectListGroup
                       placeholder="Country"
-                      name="country"
-                      value={this.state.country}
+                      name="newCountry"
+                      value={this.state.newCountry}
                       onChange={this.onChange}
                       options={countryOptions}
                     />
                     <SelectListGroup
                       placeholder="City"
-                      name="city"
-                      value={this.state.city}
+                      name="newCity"
+                      value={this.state.newCity}
                       onChange={this.onChange}
                       options={cityOptions}
                     />
                     <TextAreaFieldGroup
-                      name="description"
-                      value={this.state.description}
+                      name="newDescription"
+                      value={this.state.newDescription}
                       onChange={this.onChange}
                       placeholder="Job description"
                     />
@@ -262,9 +262,11 @@ class JobList extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  jobs: state.jobs,
-  auth: state.auth
-});
+const mapStateToProps = state => {
+  return {
+    jobs: state.jobs,
+    auth: state.auth
+  }
+};
 
 export default connect(mapStateToProps, {fetchJobs, addJob})(JobList);

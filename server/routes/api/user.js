@@ -76,7 +76,6 @@ router.post(
 // @desc Login user
 // @access Public
 router.post('/login', (req, res) => {
-  console.log(req.body);
   const { errors, isValid } = validateLoginInput(req.body);
 
   // Check Validation

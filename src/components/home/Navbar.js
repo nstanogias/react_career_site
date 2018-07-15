@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from  'prop-types';
-import { logoutUser } from "../../store/actions/actions";
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {logoutUser} from "../../store/actions/actions";
 
 class Navbar extends Component {
 
@@ -14,17 +14,17 @@ class Navbar extends Component {
 
   render() {
 
-    const { isAuthenticated, user } = this.props.auth;
+    const {isAuthenticated, user} = this.props.auth;
 
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <Link className="nav-link text-white" to="/profile">
-            My Profile
+          <Link className="nav-link text-white" to="/dashboard">
+            Dashboard
           </Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link text-white" to={user.role === 1 ? "/AppliedJobsAdminView" : "/AppliedJobsView"}>
+          <Link className="nav-link text-white" to={user.role === 1 ? "/appliedJobs" : "/appliedJobs"}>
             Applied Jobs
           </Link>
         </li>
@@ -59,17 +59,15 @@ class Navbar extends Component {
       <nav className="navbar navbar-expand-sm mb-4">
         <div className="container">
           <Link className="navbar-brand text-white" to="/">
-            {/*<img src="../../assets/images/img3.png" width="160" height="40"/>*/}
-            {/*<img src="../../assets/images/im.png" className="img-fluid" style={{height: 'auto', maxWidth: '100%', objectFit: 'contain'}}/>*/}
             Nordea
-            </Link>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
             data-toggle="collapse"
             data-target="#mobile-nav"
           >
-            <span className="navbar-toggler-icon" />
+            <span className="navbar-toggler-icon"/>
           </button>
 
           <div className="collapse navbar-collapse" id="mobile-nav">
@@ -87,8 +85,10 @@ Navbar.propTypes = {
   auth: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-  auth:state.auth
-});
+const mapStateToProps = state => {
+  return {
+    auth:state.auth
+  }
+};
 
 export default connect(mapStateToProps, {logoutUser})(Navbar);

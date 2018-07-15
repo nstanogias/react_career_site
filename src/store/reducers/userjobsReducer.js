@@ -4,7 +4,7 @@ const initialState = {
   userjobs: []
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case actionType.FETCH_USERS_JOBS_SUCCESS:
       return {

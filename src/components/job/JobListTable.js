@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 class JobListTable extends Component {
 
   render() {
 
-    const { jobs } = this.props;
+    const {jobs} = this.props;
 
     let data = jobs.map(job => (
       <tr key={job._id}>
@@ -16,7 +16,7 @@ class JobListTable extends Component {
     ));
 
 
-    return(
+    return (
       <div>
         <table className="table">
           <thead>

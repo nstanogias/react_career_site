@@ -36,7 +36,6 @@ export const fetchUsersJobs = () => {
     axios
       .get('/api/userjobs')
       .then(response => {
-        console.log("users jobs are ", response.data);
         dispatch(fetchUsersJobsSuccess(response.data));
       })
       .catch(error =>
@@ -70,7 +69,7 @@ export const getUserJobsByJobId = id => {
 export const getUserJobsByUserId = id => {
   return dispatch => {
     axios
-      .get(`/api/userjobs/user${id}`)
+      .get(`/api/userjobs/user/${id}`)
       .then(res => {
         dispatch({
           type: actionTypes.FETCH_USERS_JOBS_BY_USERID,

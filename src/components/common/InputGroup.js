@@ -1,9 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-const InputGroup = ({
-
-}) => {
+const InputGroup = ({}) => {
   return (
     <div>
 

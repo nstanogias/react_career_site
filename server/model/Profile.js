@@ -7,7 +7,7 @@ const ProfileSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'users'
   },
-  handle: {
+  nickname: {
     type: String,
     required: true,
     max: 40

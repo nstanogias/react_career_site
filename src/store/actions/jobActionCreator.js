@@ -20,7 +20,6 @@ export const fetchJobs = () => {
     axios
       .get('/api/jobs')
       .then(response => {
-        console.log("jobs are ", response.data);
         dispatch(fetchJobsSuccess(response.data));
       })
       .catch(error =>
@@ -37,11 +36,11 @@ export const getJobById = id => {
     axios
       .get(`/api/jobs/${id}`)
       .then(res => {
-        console.log("job is ", res.data);
         dispatch({
           type: actionTypes.FETCH_JOB,
           payload: res.data
-        })
+        });
+        return res.data;
       })
       .catch(err =>
         dispatch({
