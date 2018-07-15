@@ -11,10 +11,10 @@
 ## Deployed
 https://react-job-portal.herokuapp.com/
 
-Admin userName: admin@gmail.com
+Admin userName: admin1@gmail.com
 
 Admin password: 123456
 
-User userName: test@gmail.com
+User userName: nstnaogias@gmail.com
 
 User password: test123
