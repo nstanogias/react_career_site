@@ -29,6 +29,7 @@
     "validator": "^10.2.0"
   },
   "devDependencies": {
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.17.5",
+    "redux-devtools-extension": "^2.13.5"
   }
 }
