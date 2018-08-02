@@ -5,6 +5,7 @@ import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import {createProfile} from '../../store/actions/profileActionCreator';
+import {withRouter} from 'react-router-dom';
 
 class CreateProfile extends Component {
 
@@ -172,4 +173,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps, {createProfile})(CreateProfile);
+export default connect(mapStateToProps, {createProfile})(withRouter(CreateProfile));

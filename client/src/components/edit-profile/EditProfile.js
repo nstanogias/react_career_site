@@ -6,6 +6,7 @@ import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import {createProfile, getCurrentProfile} from '../../store/actions/profileActionCreator';
 import _ from 'lodash';
+import {withRouter} from 'react-router-dom';
 
 class EditProfile extends Component {
 
@@ -204,4 +205,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps, {createProfile, getCurrentProfile})(EditProfile);
+export default connect(mapStateToProps, {createProfile, getCurrentProfile})(withRouter(EditProfile));
